@@ -1,0 +1,686 @@
+//1. Write a C/C++ -- program to Implement Lexical Analyzer.
+
+#include <iostream>
+#include <cctype>
+#include <string>
+#include <fstream>
+
+bool isKeyword(const std::string& str) {
+    std::string keywords[32] = {"auto","break","case","char","const","continue","default",
+                                "do","double","else","enum","extern","float","for","goto",
+                                "if","int","long","register","return","short","signed",
+                                "sizeof","static","struct","switch","typedef","union",
+                                "unsigned","void","volatile","while"};
+
+    for(int i = 0; i < 32; ++i)
+        if(str == keywords[i])
+            return true;
+    return false;
+}
+
+int main() {
+    std::ifstream file("one.txt");
+    char ch;
+    std::string str;
+    char operators[] = {'+', '-', '*', '/', '%', '=', '>', '<', '!', '&', '|', '^'};
+
+    while(file >> std::noskipws >> ch){
+        for(int i = 0; i < 12; ++i){
+            if(ch == operators[i]){
+                std::cout << ch << " is an operator\n";
+                break;
+            }
+        }
+
+        if(isalnum(ch) || ch == '_'){
+            str += ch;
+        }
+        else if((ch == ' ' || ch == '\n' || ch == ';' || ch == '(' || ch == ')') && !str.empty()){
+            if(isKeyword(str))
+                std::cout << str << " is keyword\n";
+            else
+                std::cout << str << " is identifier\n";
+            str.clear();
+        }
+    }
+
+    file.close();
+    return 0;
+}
+
+int main() {
+    int a = 5;
+    int b = 10;
+    int sum = a + b;
+    return 0;
+}
+
+
+// 2. Lextool
+
+/*
+    lex lexer.l 
+    gcc lex.yy.c -ll   
+    ./a.out < two.txt    
+*/
+
+%{
+    int i = 0;
+    int k = 0;
+%}
+
+%%
+
+[0-9]+ { printf("Integer: %s\n", yytext); i++;}
+[0-9]+"."[0-9]+ { printf("Float: %s\n", yytext); }
+[a-zA-Z_][a-zA-Z_0-9]* { printf("Identifier: %s\n", yytext); k++; }
+
+
+%%
+
+int main(void) {
+    yylex();
+    printf("Number of characters: %d %d\n", i, k);
+    return 0;
+}
+
+int yywrap() {
+    return 1;
+}
+
+
+int main() {
+    int a = 5;
+    int b = 10;
+    int sum = a + b;
+    return 0;
+}
+
+
+//3. Write a Program to Compute FIRST of Non-Terminals.
+
+/*
+INPUT : 
+8
+S=AB
+B=aAB
+B=b
+A=CD
+D=cCD
+D=b
+C=(E)
+C=d
+
+OUTPUT:
+First (A) : {  (  d   } 
+First (B) : {  a  b   } 
+First (C) : {  (  d   } 
+First (D) : {  b  c   } 
+First (S) : {  (  d   }
+
+*/
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int n;
+char productionSet[10][10];
+ 
+void FIRST(set<char> &result,char c)
+{
+    if(!(isupper(c)))
+    {
+        result.insert(c);
+        return;
+    }
+    for(int i=0;i<n;i++)
+    {   
+        if(productionSet[i][0]==c)
+        {
+          FIRST(result,productionSet[i][2]);
+        }
+    }
+}
+int main()
+{
+    cin>>n;
+    set<char> s;
+    for(int i=0;i<n;i++)
+    {
+        cin>>productionSet[i];
+        s.insert(productionSet[i][0]);
+    }
+    for(auto c : s)
+    {
+        set<char> result;
+        FIRST(result,c);
+        cout<<"First ("<<c<<") : {  ";
+        for(auto x : result)
+        {
+            cout<<x<<"  ";
+        }
+        cout<<" } \n";
+    }
+}
+
+
+//4. Write a Program to compute FOLLOW of Non-Terminals.
+
+/*
+INPUT:
+8
+S=AB
+B=aAB
+B=b
+A=CD
+D=cCD
+D=b
+C=(E)
+C=d
+
+
+OUTPUT:
+Follow of (A) { a b  }
+Follow of (B) {  $  }
+Follow of (C) { b c  }
+Follow of (D) {  a b  }
+Follow of (S) { $  }
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+char productions[10][10];
+
+void FIRST(set<char> &result, char c){
+  if(!isupper(c)){
+    result.insert(c);
+    return;
+  }
+  for(int i=0;i<n;i++){
+    if(productions[i][0]==c){
+      FIRST(result, productions[i][2]);
+    }
+  }
+}
+
+void FOLLOW(set<char> &result, char c){
+  if(c=='S') result.insert('$');
+  for(int i=0;i<n;i++){
+    for(int j=2;j<strlen(productions[i]);j++){
+      if(productions[i][j]==c){
+        if(productions[i][j+1]=='\0' && c!=productions[i][0])
+        FOLLOW(result,productions[i][0]);
+        else
+        FIRST(result,productions[i][j+1]);
+      }
+    }
+  }
+}
+
+int main() 
+{
+    cin>>n;
+    set<char> s;
+    for(int i=0;i<n;i++){
+      cin>>productions[i];
+      s.insert(productions[i][0]);
+    }
+    for(auto c : s){
+      set<char> result;
+      FOLLOW(result,c);
+      cout <<"Follow of ("<< c <<") { ";
+      for(auto r : result){
+        cout<< r <<" ";
+      }
+      cout<<" }\n";
+    }
+    return 0;
+}
+
+
+//5.Write a Program to implement Top Down Parsing for a given Grammar
+
+/*
+INPUT:
+i*i+i
+
+OUTPUT:
+Recursive descent parsing for grammar
+
+E->TE'
+E'->+TE'/@
+T->FT'
+T'->*FT'/@
+F->(E)/ID
+
+string is Accepted
+*/
+
+#include<stdio.h>
+
+char input[100];
+int i,error; // by default i and error initializes to 0
+
+int main()
+{
+    printf("Recursive descent parsing for grammar\n");
+    printf("\nE->TE'\nE'->+TE'/@\nT->FT'\nT'->*FT'/@\nF->(E)/ID\n\n");
+    gets(input);
+    
+    E();
+    
+    if(input[i]=='\0' && error==0)
+    {
+         printf("string is Accepted");
+    }
+    else{
+        printf("String rejected");
+    }
+ 
+}
+E()
+{
+    T();
+    Eds();
+}
+T()
+{
+    F();
+    Tds();
+}
+Eds()
+{
+    if(input[i]=='+')
+    {
+        i++;
+        T();
+        Eds();
+    }
+}
+Tds()
+{
+    if(input[i]=='*')
+    {
+        i++;
+        F();
+        Tds();
+    }
+}
+F()
+{
+    if(input[i]=='(')
+    {
+        i++;
+        E();
+        i++;
+    }
+    else if(input[i]=='i')
+    {
+        i++;
+    }
+    else{
+        error=1;
+    }
+}
+
+//6. ll(1) parser
+#include<bits/stdc++.h>
+using namespace std;
+
+int i=0, error=0;
+string input;
+vector<string>ps;
+
+void E();
+void Eds();
+void T();
+void Tds();
+void F();
+void printps();
+
+int main(){
+
+    cout << "LL(1) Parser\n\nGrammar is:\n";
+    cout <<"E->TE'\nE'->+TE'/@\nT->FT'\nT'->*FT'/@\nF->(E)/id\n\nEnter string input: ";
+    cin >> input;
+    E();
+    if(i==input.length() && error==0)
+        ps.push_back("String Accepted");
+    else
+        ps.push_back("String Not Accepted");
+    printps();
+    return 0;
+}
+
+void E(){
+    ps.push_back("E->TE'");
+    T();
+    Eds();
+}
+
+void Eds(){
+    if(input[i]=='+'){
+        ps.push_back("E'->+TE'");
+        i++;
+        T();
+        Eds();
+    }
+    else
+        ps.push_back("E-'>@");
+
+}
+
+void T(){
+    ps.push_back("T->FT'");
+    F();
+    Tds();
+}
+
+void Tds(){
+    if(input[i]=='*'){
+        ps.push_back("T'->*FT'");
+        i++;
+        F();
+        Tds();
+    }
+     else
+        ps.push_back("T'->@");
+}
+
+void F(){
+    if(input[i]=='('){
+        ps.push_back("F->(E)");
+        i++;
+        E();
+        if(input[i]==')')
+            i++;
+        else{
+            ps.push_back("error");
+            error=1;
+            }
+       }
+       if(input[i]=='i'){
+            ps.push_back("F->id");
+            i++;
+       }
+       else
+        ps.push_back("error");
+}
+
+void printps(){
+    cout <<"+----------------------+\n";
+    cout <<"| Productions Applied  |"<<endl;
+    cout <<"+----------------------+\n";
+    for(const auto& step: ps){
+        cout << "| " << setw(20) << left << step << " |" <<endl;
+    }
+    cout <<"+----------------------+\n";
+
+}
+
+//8. Write a Program to Convert Infix Expression to Post Expression.
+
+#include <iostream>
+#include <stack>
+#include <string>
+
+bool isOperator(char c) {
+    return (c == '+' || c == '-' || c == '*' || c == '/');
+}
+
+int precedence(char c) {
+    if(c == '^')
+        return 3;
+    else if(c == '*' || c == '/')
+        return 2;
+    else if(c == '+' || c == '-')
+        return 1;
+    else
+        return -1;
+}
+
+std::string infixToPostfix(std::string infix) {
+    std::stack<char> st;
+    std::string postfix;
+    for (int i = 0; i < infix.length(); i++) {
+        char c = infix[i];
+
+        if (isOperator(c)) {
+            while (!st.empty() && precedence(st.top()) >= precedence(c)) {
+                postfix += st.top();
+                st.pop();
+            }
+            st.push(c);
+        } else {
+            postfix += c;
+        }
+    }
+
+    while (!st.empty()) {
+        postfix += st.top();
+        st.pop();
+    }
+
+    return postfix;
+}
+
+int main() {
+    std::string infix_exp;
+    std::cout << "Enter an infix expression: ";
+    std::cin >> infix_exp;
+    std::cout << "Postfix expression: " << infixToPostfix(infix_exp) << std::endl;
+    return 0;
+}
+
+//9. predictive parser
+
+#include <iostream>
+#include <string>
+#include <cstring>  // For C-style string functions like strcpy
+using namespace std;
+
+// Definitions for grammar, first, and follow sets
+string prol[7] = { "S", "A", "A", "B", "B", "C", "C" };
+string pror[7] = { "A", "Bb", "Cd", "aB", "@", "Cc", "@" };
+string prod[7] = { "S->A", "A->Bb", "A->Cd", "B->aB", "B->@", "C->Cc", "C->@" };
+string first[7] = { "abcd", "ab", "cd", "a@", "@", "c@", "@" };
+string follow[7] = { "$", "$", "$", "a$", "b$", "c$", "d$" };
+string table[5][6] = { "" };
+
+// Function to convert non-terminal and terminal characters to table indices
+int numr(char c) {
+    switch (c) {
+        case 'S': return 0;
+        case 'A': return 1;
+        case 'B': return 2;
+        case 'C': return 3;
+        case 'a': return 0;
+        case 'b': return 1;
+        case 'c': return 2;
+        case 'd': return 3;
+        case '$': return 4;
+    }
+    return -1;  // Error case
+}
+
+int main() {
+    int i, j, k;
+
+    // Display the grammar used for the parsing table
+    cout << "The following grammar is used for Parsing Table:\n";
+    for (i = 0; i < 7; i++)
+        cout << prod[i] << endl;
+
+    cout << "\nPredictive parsing table:\n";
+
+    // Fill the parsing table based on the first sets
+    for (i = 0; i < 7; i++) {
+        for (char f : first[i]) {
+            if (f != '@') {
+                table[numr(prol[i][0]) + 1][numr(f) + 1] = prod[i];
+            }
+        }
+    }
+
+    // Handle epsilon (empty string '@') productions based on follow sets
+    for (i = 0; i < 7; i++) {
+        if (pror[i] == "@") {
+            for (char f : follow[i]) {
+                table[numr(prol[i][0]) + 1][numr(f) + 1] = prod[i];
+            }
+        }
+    }
+
+    // Set the headers for the table
+    table[0][0] = " ";
+    table[0][1] = "a";
+    table[0][2] = "b";
+    table[0][3] = "c";
+    table[0][4] = "d";
+    table[0][5] = "$";
+    table[1][0] = "S";
+    table[2][0] = "A";
+    table[3][0] = "B";
+    table[4][0] = "C";
+
+    // Display the parsing table
+    for (i = 0; i < 5; i++) {
+        for (j = 0; j < 6; j++) {
+            cout << table[i][j] << "\t";
+        }
+        cout << "\n\n";
+    }
+
+    return 0;
+}
+
+//10. Write a Program to Construct the Shift-Reduce Parser for a given Grammar.
+
+/*
+INPUT:
+a+a*a
+
+OUTPUT:
+GRAMMAR is : 
+ E->E+E 
+ E->E*E 
+ E->a
+
+stack	 input	action
+$a	 +a*a$	SHIFT->a
+$E	 +a*a$	REDUCE E->a
+$E+	  a*a$	SHIFT->+
+$E+a	   *a$	SHIFT->a
+$E+E	   *a$	REDUCE E->a
+$E	   *a$	REDUCE E->E+E
+$E*	    a$	SHIFT->*
+$E*a	     $	SHIFT->a
+$E*E	     $	REDUCE E->a
+$E	     $	REDUCE E->E*E
+
+string accepted
+*/
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int n;
+string s;
+vector<char> st;
+vector<char> a;
+
+void StackAndInput(){ //print stack and input vector elements
+  cout<<"\n$";
+  for(auto x: st)
+      cout<<x;
+  cout<<"\t";
+  for(auto x : a)
+      cout<<x;
+}
+void check()  //check if there any reduction possible for stack elements
+{   
+    for(int i=0;i<st.size();i++)
+    {
+        if(st[i]=='a')
+        {
+            st[i]='E';
+            StackAndInput();
+            cout<<"$\t"<<"REDUCE E->a";
+            check(); // we again do checking because here we may need to reduce continousely
+        }
+        if(i+2<st.size() && st[i]=='E'&& (st[i+1]==('+') || st[i+1]==('*')) && st[i+2]=='E')
+        {
+            st.pop_back();
+            st.pop_back();
+            StackAndInput();
+            if(st[i+1]=='+')
+              cout<<"$\t"<<"REDUCE E->E+E";
+            else if(st[i+1]=='*')
+              cout<<"$\t"<<"REDUCE E->E*E";
+        }
+    }
+}
+int main()
+{
+    cout<<"GRAMMAR is : \n E->E+E \n E->E*E \n E->a\n";
+    //cout<<"enter input string ";
+    cin>>s;
+    n=s.length();
+    for(int i=0;i<n;i++)
+      a.push_back(s[i]);
+
+    cout<<"\nstack\t input\taction";
+    for(int i=0;i<n;i++)
+    {
+        st.push_back(a[i]);
+        a[i]=' '; // replace element with space so that it not visible in output
+        StackAndInput();
+        cout<<"$\t"<<"SHIFT->"<<st.back();
+        check();
+    }
+    if(st.size()==1 && st[0]=='E')
+        cout<<"\n\nstring accepted";
+    else
+        cout<<"\n\nstring rejected";
+}
+
+//12. Three Address Code
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string s;
+    char j = 'A';
+
+    cout << "Enter the expression: ";
+    cin >> s;
+
+    cout << "3address code" << endl;
+
+    int n = s.length(), h;
+
+    for (int i = 2; i <=n; i++) {
+        char op = s[i];
+        if (op == '*' || op == '/' || op == '+' || op == '-') {
+            cout << j << " = " << s[i - 1] << op << s[i + 1] << endl;
+            s.replace(i - 1, 3, 1, j++);
+            n -= 2;
+            i--;
+        }
+    }
+
+    cout << s[0] << " = " << s[2];
+
+    return 0;
+}
+
+// OUTPUT::
+
+// Enter the expression: z=a+b+c
+// 3address code
+// A = a+b
+// B = A+c
+// z = B
