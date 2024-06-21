@@ -1,0 +1,1508 @@
+Week 1
+
+<?php
+for ($num = 2; $num <= 50; $num++) {
+    $is_prime = true;
+    for ($i = 2; $i <= sqrt($num); $i++) {
+        if ($num % $i == 0) {
+            $is_prime = false;
+            break;
+        }
+    }
+    if ($is_prime) {
+        echo $num . " ";
+    }
+}
+?>
+
+
+OUTPUT:
+2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 
+
+
+Week 2
+
+a.)length of string
+
+<?php
+    $str="heyyyy";
+    echo "length of the string is ". strlen($str);
+?>
+
+OUTPUT:
+length of the string:6
+___________________________________________________________________________________________________________
+Week-2(b)-Count no of words in a string
+
+<?php
+	echo str_word_count("hello world");
+?>
+
+OUTPUT:
+2
+___________________________________________________________________________________________________________
+Week-2(c)-Reverse a string
+
+<?php
+    $string="good morning";
+    echo strrev($string);
+?>
+
+OUTPUT:
+gninrom doog
+___________________________________________________________________________________________________________
+Week-2(d)-Search for a specific string
+
+<?php
+echo strpos("hello world","world");
+?>
+
+OUTPUT:
+6
+
+
+Week 3
+
+<?php
+$array1 = [3, 5, 1, 10];
+$array2 = [8, 7, 2, 4];
+
+$merged_array = array_merge($array1, $array2);
+
+rsort($merged_array);
+
+print_r($merged_array);
+?>
+
+  
+
+output:
+Array
+(
+    [0] => 10
+    [1] => 8
+    [2] => 7
+    [3] => 5
+    [4] => 4
+    [5] => 3
+    [6] => 2
+    [7] => 1
+)
+
+
+Week 4
+
+<?php
+$source = 'file1.txt';
+$destination = 'file2.txt';
+
+file_put_contents($destination, file_get_contents($source));
+
+echo "Data copied successfully from $source to $destination.";
+
+
+
+
+OUTPUT:
+
+Data copied successfully from file1.txt to file2.txt.
+
+
+
+
+
+
+Week 5
+__________________________________________________________________________________________________________
+index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>www.amazon.com</title>
+</head>
+<body bgcolor="yellow">
+    <marquee><h1>Welcome to Amazon Shopping</h1></marquee>
+    <center>
+        <img src="C:\Users\318\Desktop\Amazon-512.webp" width="60" alt="Amazon Image">
+    </center>
+    <ul>
+        <li><a href="index.html">Home Page</a></li>
+        <li><a href="registration.html">Registration</a></li>
+	<li><a href="login.html"> User Login</a></li>
+        <li><a href="user_profile.html">User Profile Page</a></li>
+        <li><a href="books_catalog.html">Books Catalog</a></li>
+        <li><a href="shopping_cart.html">Shopping Cart</a></li>
+        <li><a href="payment.html">Payment By Credit Card</a></li>
+        <li><a href="order_confirmation.html">Order Confirmation</a></li>
+    </ul>
+</body>
+</html>
+
+___________________________________________________________________________________________________________
+registration.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration </title>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <form action="login.html" onsubmit="return validateForm()">
+        First Name:
+        <input type="text" id="firstName" name="firstName" required><br><br>
+        Last Name:
+        <input type="text" id="lastName" name="lastName" required><br><br>
+        Username:
+        <input type="text" id="username" name="username" required><br><br>
+        Email:
+        <input type="email" id="email" name="email" required><br><br>
+        Password:
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
+___________________________________________________________________________________________________________
+login.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Login</title>
+</head>
+<body>
+    <h1>Login Form</h1>
+    <form action="user_profile.html" onsubmit="return validateForm()">
+        Username:
+        <input type="text" id="username" name="username" required><br><br>
+        Password:
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
+___________________________________________________________________________________________________________
+user_profile.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+</head>
+<body onload="validateSession()">
+    <h1>User Profile</h1>
+    <p>Welcome!</p>
+    
+    <h2>User Information</h2>
+    <ul>
+        <li><strong>First Name:</strong>Your first name</li>
+        <li><strong>Last Name:</strong>Your last name</li>
+        <li><strong>Email:</strong>Your email</li>
+    </ul>
+    
+    <form action="books_catalog.html">
+        <button type="submit">Go to Books</button>
+    </form>
+
+</body>
+</html>
+
+___________________________________________________________________________________________________________
+books_catalog.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Catalog</title>
+</head>
+<body>
+    <h1>Select a Book Category</h1>
+    <form action="cart.html" target="_blank">
+        <label>Choose a book:</label><br>
+        <select>
+            <option value="java">Java</option>
+            <option value="cpp">C++</option>
+        </select><br><br>
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>
+__________________________________________________________________________________________________________
+shopping_cart.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart</title>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    <h2>Selected Book Details:</h2>
+    <p><strong>Book:</strong> Java Programming</p>
+    <p><strong>Price:</strong> $29.99</p>
+    <h2>Payment Details</h2>
+    <form action="payment.html" target="_blank">
+        <button type="submit">Pay Now</button>
+    </form>
+</body>
+</html>
+_________________________________________________________________________________________________________
+payment.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment By Credit Card</title>
+</head>
+<body>
+    <h1>Payment By Credit Card</h1>
+    <form action="order_confirmation.html" onsubmit="return validateForm()">
+       Card Number:
+        <input type="number" id="cardNumber" name="cardNumber" min="0" max="9999999999999999" required><br><br>
+        Expiry Date:
+        <input type="date" id="expiry" name="expiry" required><br><br>
+        CVV:
+        <input type="number" id="cvv" name="cvv" min="0" max="999" required><br><br>
+        <button type="submit">Pay Now</button>
+    </form>
+</body>
+</html>
+__________________________________________________________________________________________________________
+order_confirmation.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Confirmation</title>
+</head>
+<body>
+    <h1>Order Confirmation</h1>
+    <p>Your order has been successfully placed!</p>
+</body>
+</html>
+
+
+
+Week 6
+
+
+index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>www.amazon.com</title>
+</head>
+<body bgcolor="yellow">
+    <marquee><h1>Welcome to Amazon Shopping</h1></marquee>
+    <center>
+        <img src="C:\Users\318\Desktop\Amazon-512.webp" width="60" alt="Amazon Image">
+    </center>
+    <ul>
+        <li><a href="index.html">Home Page</a></li>
+        <li><a href="registration.html">Registration</a></li>
+	<li><a href="login.html"> User Login</a></li>
+        <li><a href="user_profile.html">User Profile Page</a></li>
+        <li><a href="payment.html">Payment By Credit Card</a></li>
+    </ul>
+</body>
+</html>
+-----------------------------------------------------------------------------------------------------------
+registration
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration </title>
+    <script>
+        function validateForm() {
+            var firstName = document.getElementById("firstName").value;
+            var lastName = document.getElementById("lastName").value;
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (firstName === "" || lastName === "" || username === "" || password === "") {
+                alert("Name and password cannot be empty");
+                return false;
+            }
+
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <form action="login.html" onsubmit="return validateForm()">
+        First Name:
+        <input type="text" id="firstName" name="firstName" required><br><br>
+        Last Name:
+        <input type="text" id="lastName" name="lastName" required><br><br>
+        Username:
+        <input type="text" id="username" name="username" required><br><br>
+        Email:
+        <input type="email" id="email" name="email" required><br><br>
+        Password:
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
+-----------------------------------------------------------------------------------------------------------
+login
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Login</title>
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username === "" || password === "") {
+                alert("Username and password cannot be empty");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>Login Form</h1>
+    <form action="user_profile.html" onsubmit="return validateForm()">
+        Username:
+        <input type="text" id="username" name="username" required><br><br>
+        Password:
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
+----------------------------------------------------------------------------------------------------------
+user_profile
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <script>
+        function validateSession() {
+            var isLoggedIn = localStorage.getItem("isLoggedIn");
+
+            if (!isLoggedIn || isLoggedIn !== "true") {
+                alert("You are not logged in. Please login to view your profile.");
+                window.location.href = "login.html"; // Redirect to login page
+            }
+        }
+    </script>
+</head>
+<body onload="validateSession()">
+    <h1>User Profile</h1>
+    <p>Welcome!</p>
+    
+    <h2>User Information</h2>
+    <ul>
+        <li><strong>First Name:</strong>Your first name</li>
+        <li><strong>Last Name:</strong>Your last name</li>
+        <li><strong>Email:</strong>Your email</li>
+    </ul>
+    
+    <form action="books_catalog.html">
+        <button type="submit">Go to Books</button>
+    </form>
+
+</body>
+</html>
+-----------------------------------------------------------------------------------------------------------
+payment
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment By Credit Card</title>
+    <script>
+        function validateForm() {
+            var cardNumber = document.getElementById("cardNumber").value;
+            var cvv = document.getElementById("cvv").value;
+
+            if (cardNumber.length !== 16) {
+                alert("Card number must be 16 digits");
+                return false;
+            }
+
+            if (cvv.length !== 3) {
+                alert("CVV must be 3 digits");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>Payment By Credit Card</h1>
+    <form action="order_confirmation.html" onsubmit="return validateForm()">
+       Card Number:
+        <input type="number" id="cardNumber" name="cardNumber" min="0" max="9999999999999999" required><br><br>
+        Expiry Date:
+        <input type="date" id="expiry" name="expiry" required><br><br>
+        CVV:
+        <input type="number" id="cvv" name="cvv" min="0" max="999" required><br><br>
+        <button type="submit">Pay Now</button>
+    </form>
+</body>
+</html>
+
+
+Week 7
+
+index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details</title>
+</head>
+<body>
+    <input type="text" id="rollno" placeholder="Enter your roll number" />
+    <button type="button" onclick="loadXML()">Submit</button>
+    <p id="data">Hello</p>
+
+    <script>
+        function loadXML() {
+            var xml = new XMLHttpRequest();
+            xml.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    studDetails(this);
+                }
+            };
+            xml.open("GET", "data.xml", true);
+            xml.send();
+        }
+
+        function studDetails(xml) {
+            var xmlDoc = xml.responseXML;
+            var data = "";
+            var x = xmlDoc.getElementsByTagName("student");
+            var enteredRollNo = document.getElementById("rollno").value;
+
+            for (var i = 0; i < x.length; i++) {
+                var rollno = x[i].getElementsByTagName("rollno")[0].childNodes[0].nodeValue;
+                if (enteredRollNo === rollno) {
+                    var name = x[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+                    var percentage = x[i].getElementsByTagName("percentage")[0].childNodes[0].nodeValue;
+                    var gender = x[i].getElementsByTagName("gender")[0].childNodes[0].nodeValue;
+                    data += "<strong>Name:</strong> " + name + "<br />";
+                    data += "<strong>Roll Number:</strong> " + rollno + "<br />";
+                    data += "<strong>Percentage:</strong> " + percentage + "<br />";
+                    data += "<strong>Gender:</strong> " + gender + "<br />";
+                }
+            }
+
+            if (data === "") {
+                data = "No person found";
+            }
+
+            document.getElementById("data").innerHTML = data;
+        }
+    </script>
+</body>
+</html>
+___________________________________________________________________________________________________________
+
+data.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<CSE>
+<student>
+	<name>Anoop</name>
+		<rollno>501</rollno>
+		<percentage>98</percentage>
+		<gender>Male</gender>
+</student>
+<student>
+		<name>Ankit</name>
+		<rollno>502</rollno>
+		<percentage>92</percentage>
+		<gender>Male</gender>
+</student>
+<student>
+		<name>Ayaz</name>
+		<rollno>503</rollno>
+		<percentage>90</percentage>
+		<gender>Male</gender>
+</student>
+<student>
+		<name>Alok</name>
+		<rollno>504</rollno>
+		<percentage>92</percentage>
+		<gender>Male</gender>
+</student>
+<student>
+		<name>Mohan</name>
+		<rollno>505</rollno>
+		<percentage>18</percentage>
+		<gender>Male</gender>
+</student>
+<student>
+		<name>Pandit</name>
+		<rollno>506</rollno>
+		<percentage>69</percentage>
+		<gender>Male</gender>
+</student>
+<student>
+		<name>Karan</name>
+		<rollno>507</rollno>
+		<percentage>48</percentage>
+		<gender>Male</gender>
+	</student>
+
+	<student>
+		<name>Adwik</name>
+		<rollno>508</rollno>
+		<percentage>100</percentage>
+		<gender>Male</gender>
+	</student>
+
+	<student>
+		<name>Lokesh</name>
+		<rollno>509</rollno>
+		<percentage>8</percentage>
+		<gender>Male</gender>
+	</student>
+
+	<student>
+		<name>Joker</name>
+		<rollno>510</rollno>
+		<percentage>39</percentage>
+		<gender>Male</gender>
+	</student>
+</CSE>
+
+
+books catalog
+
+<html>
+<head>
+<title>
+books catalog</title>
+</head>
+<body bgcolor="cyan">
+<center><h1>AMAZON</h1></center>
+<form method="post" action="shopping.html">
+<left>
+<table>
+<tr>
+<td><b><h3>frontend books</td>
+<td></td></tr>
+<tr>
+<td></td>
+<td><h4>C&Ds</td>
+</tr>
+<tr>
+<td></td>
+<td><h4>Ads</td>
+</tr>
+<tr>
+<td></td>
+<td><h4>JAVA
+</td></tr>
+<tr>
+<td><b><h3>backend books</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><h4>Oracle</td>
+</tr>
+<tr>
+<td></td>
+<td><h4>Ms SQL Server
+</td></tr>
+<tr>
+<td></td>
+<td><h4>MySql </td>
+</tr>
+</table>
+</h4>
+<center>
+<b>for buy one of these books
+<br>
+</b><input type="submit" value="click here">
+</center>
+</form>
+</body>
+</html>
+
+
+shopping cart
+
+<html>
+<head><title>shopping cart</title>
+</head>
+<body bgcolor="cyan">
+<center><h1>
+Shopping Cart</h1></center>
+<br><br><br><br><br>
+<table align="center">
+<tr>
+<td>Text Books</td>
+<td>
+<select >
+<optgroup label="select the book">
+<option value="C&Ds">C&Ds
+<option value="Ads">Ads
+<option value="Java">Java
+<option value="Oracle">Oracle
+<option value="Ms SQL Server">Ms SQL Server
+<option value="MySql">MySql
+</optgroup>
+</select>
+</td></tr>
+<tr>
+<td>
+Quantity</td>
+<td>
+<input type="text" id="q">
+</td></tr>
+<tr>
+<td></td>
+<td>
+<form method=post action="payment.html">
+<input type="submit" value=ok />
+</form>
+</td></tr>
+</table>
+<center>
+<pre>Cost of one book is"500" + shipping "100"</pre>
+</center>
+<body>
+</html>
+
+
+user profile
+
+<html>
+<head>
+<title>
+userprofile</title>
+</head>
+<body bgcolor="cyan"> <center>
+<strong><h1>Welcome to AMAZON Online Book Store </h1></strong></center>
+Edit your profile here...
+<form method="post" action="catalog.html" >
+<right>
+<table align="left">
+<tr>
+<td><h4>Edit user name</td>
+<td><input type="text" ></td>
+<tr>
+<tr>
+<td><h4>Edit password</td>
+<td><input type="password"></td>
+</tr>
+<tr>
+<option >
+<td><h4>male &nbsp;&nbsp;
+<input type="radio" name="sex" id="male"></td>
+<td><h4>female &nbsp; &nbsp;
+<input type="radio" name="sex" id="female" ></td>
+</option>
+</tr>
+<tr>
+<td>Edit Address</td>
+<td><textarea name="address" rows=5 cols=19>
+</textarea>
+</td>
+<tr>
+<td>
+<input type="submit" value="submit" ></td>
+</tr>
+</form>
+</body>
+</html>
+
+
+
+login
+week 5
+<html>
+<head>
+<title>
+login</title>
+</head>
+<body bgcolor="cyan"> <center>
+<strong><h1> AMAZON </h1></strong>
+<table>
+<tr>
+<td><h4>user name</td>
+<td><input type="text" ></td>
+<td></td>
+</tr>
+<tr>
+<td><h4>password</td>
+<td><input type="password"></td>
+<td></td>
+</tr>
+<tr>
+<td>
+<form method="post" action="catalog.html" >
+<input type="submit" value="submit" >
+</form>
+</td>
+<td>
+<form method="post" action="reg.html" >
+<input type="submit" value="register" >
+&nbsp;&nbsp;
+<input type="reset" value="reset"></form></td>
+</tr>
+</table>
+</center>
+</body>
+</html>
+
+
+
+week66666
+
+user registration
+ <html>
+<head>
+<body>
+<script>  
+function validateform(){  
+var name=document.myform.name.value;  
+var password=document.myform.password.value;  
+  
+if (name==null || name==""){  
+  alert("Name can't be blank");  
+  return false;  
+}else if(password.length<6){  
+  alert("Password must be at least 6 characters long.");  
+  return false;  
+  }  
+}  
+</script>  
+</head>
+<body>  
+<form name="myform" method="post" action="http://www.javatpoint.com/javascriptpages/valid.jsp" onsubmit="return validateform()" >  
+Name: <input type="text" name="name"><br/>  
+Password: <input type="password" name="password"><br/>  
+<input type="submit" value="register">  
+</form>  
+</body>
+</html>
+
+=================================================================
+ user validation
+
+ <!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+function matchpass(){
+var firstpassword=document.f1.password.value;
+var secondpassword=document.f1.password2.value;
+
+if(firstpassword==secondpassword){
+return true;
+}
+else{
+alert("password must be same!");
+return false;
+}
+}
+</script>
+</head>
+<body>
+
+<form name="f1" action="http://www.javatpoint.com/javascriptpages/valid.jsp" onsubmit="return matchpass()">
+Password:<input type="password" name="password" /><br/>
+Re-enter Password:<input type="password" name="password2"/><br/>
+<input type="submit">
+</form>
+
+</body>
+</html>
+
+
+payment
+week 5
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment By Credit Card</title>
+</head>
+<body>
+    <h1>Payment By Credit Card</h1>
+    <form action="order_confirmation.html" onsubmit="return validateForm()">
+       Card Number:
+        <input type="number" id="cardNumber" name="cardNumber" min="0" max="9999999999999999" required><br><br>
+        Expiry Date:
+        <input type="date" id="expiry" name="expiry" required><br><br>
+        CVV:
+        <input type="number" id="cvv" name="cvv" min="0" max="999" required><br><br>
+        <button type="submit">Pay Now</button>
+    </form>
+</body>
+</html>
+
+
+
+=============================================
+using java script week6
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment By Credit Card</title>
+    <script>
+        function validateForm() {
+            var cardNumber = document.getElementById("cardNumber").value;
+            var cvv = document.getElementById("cvv").value;
+
+            if (cardNumber.length !== 16) {
+                alert("Card number must be 16 digits");
+                return false;
+            }
+
+            if (cvv.length !== 3) {
+                alert("CVV must be 3 digits");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>Payment By Credit Card</h1>
+    <form action="order_confirmation.html" onsubmit="return validateForm()">
+       Card Number:
+        <input type="number" id="cardNumber" name="cardNumber" min="0" max="9999999999999999" required><br><br>
+        Expiry Date:
+        <input type="date" id="expiry" name="expiry" required><br><br>
+        CVV:
+        <input type="number" id="cvv" name="cvv" min="0" max="999" required><br><br>
+        <button type="submit">Pay Now</button>
+    </form>
+</body>
+</html>
+
+
+
+SET-5_2 
+
+<!-- Home Page -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Welcome to Book store</h1>
+    <button onclick="location.href='registration.html'">Register</button>
+    <button onclick="location.href='login.html'">Login</button>
+</body>
+</html>
+====================================================================
+<!-- Login page -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="catalog.html" onsubmit="return validateLogin()">
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
+====================================================================
+<!-- Order Confirmation Page -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Confirmation</title>
+</head>
+<body>
+    <h1>Order Confirmation</h1>
+    <p>Your order has been placed successfully.</p>
+</body>
+</html>
+====================================================================
+<!-- Books Catalog Page -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Books Catalog</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+</style>
+</head>
+<body>
+    <h1>Books Catalog</h1>
+    <form action="payment.html">
+        <table>
+            <tr>
+                <th>Book</th>
+                <th>Purchase</th>
+            </tr>
+            <tr>
+                <td>Book 1</td>
+                <td><button type="submit">Buy</button></td>
+            </tr>
+            <tr>
+                <td>Book 2</td>
+                <td><button type="submit">Buy</button></td>
+            </tr>
+            <tr>
+                <td>Book 3</td>
+                <td><button type="submit">Buy</button></td>
+            </tr>
+        </table>
+    </form>
+    
+</body>
+</html>
+====================================================================
+<!-- Payment Page -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Page</title>
+</head>
+<body>
+    <h1>Payment</h1>
+    <form action="confirmation.html" onsubmit="return validatePayment()">
+        <input type="text" placeholder="Card Number">
+        <input type="text" placeholder="Expiry Date">
+        <input type="text" placeholder="CVV">
+        <input type="submit" value="Pay">
+    </form>
+</body>
+</html>
+====================================================================
+<!-- Registration Page -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Page</title>
+</head>
+<body>
+    <h1>Registration</h1>
+    <form action="catalog.html" onsubmit="return validateRegistration()"></form>
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>
+
+
+
+bookstore using frameset SET 6-ii and 8-ii
+
+*note* - JS is only required in set 8 ques 2 only
+
+<!--index.html-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Online Bookstore</title>
+</head>
+<frameset rows="*,*,*,*,*">
+    <frame src="homepage.html"></frame>
+    <frame src="registration.html"></frame>
+    <frame src="login.html"></frame>
+    <frame src="catalog.html"></frame>
+    <frame src="profile.html"></frame>
+</frameset>
+
+</html>
+
+==============================================================================
+<!--homepage.html-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home Page</title>
+</head>
+
+<body>
+    <h1>Welcome to Our Online Bookstore!</h1>
+    <p>We offer a wide selection of books in various genres. Please register or login to make a purchase.</p>
+    <img src="bookstore.jpg" width="500" height="600">
+</body>
+
+</html>
+==============================================================================
+<!-- Registration Page -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration Page</title>
+</head>
+
+<body>
+    <h1>Registration</h1>
+    <form action="catalog.html" onsubmit="return validateRegistration()"></form>
+    <input type="text" placeholder="Username" id="username"><br>
+    <input type="password" placeholder="Password" id="password"><br><br>
+    <input type="submit" value="Register"><br>
+    </form>
+    <script>
+        function validateRegistration() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username == "" || password == "") {
+                alert("Username and password are required.");
+                return false;
+            }
+
+            // Add more validation as needed
+
+            return true;
+        }
+    </script>
+</body>
+
+</html>
+==============================================================================
+<!--login.html-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="catalog.html" onsubmit="return validateLogin()">
+        <input type="text" placeholder="Username" id="username"><br>
+        <input type="password" placeholder="Password" id="password"><br><br>
+        <input type="submit" value="Login">
+    </form>
+    <script>
+        function validateLogin() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+    
+            if (username == "" || password == "") {
+                alert("Username and password are required.");
+                return false;
+            }
+    
+            // Add more validation as needed
+    
+            return true;
+        }
+        </script>
+</body>
+</html>
+==============================================================================
+<!-- Books Catalog Page -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Books Catalog</title>
+</head>
+
+<body>
+    <h1>Books Catalog</h1>
+    <form action="payment.html">
+        <label for="book1">Book 1</label>
+        <button type="submit" id="book1">Buy</button> <br>
+
+        <label for="book2">Book 2</label>
+        <button type="submit" id="book2">Buy</button><br>
+
+        <label for="book3">Book 3</label>
+        <button type="submit" id="book3">Buy</button><br>
+    </form>
+
+</body>
+
+</html>
+==============================================================================
+<!-- Payment Page -->
+]<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Page</title>
+</head>
+<body>
+    <h1>Payment</h1>
+    <form action="confirmation.html" onsubmit="return validatePayment()">
+        <input type="text" placeholder="Card Number" id="cardNumber">
+        <input type="text" placeholder="Expiry Date" id="expiryDate">
+        <input type="text" placeholder="CVV" id="cvv">
+        <input type="submit" value="Pay">
+    </form>
+    <script>
+        function validatePayment() {
+            var cardNumber = document.getElementById('cardNumber').value;
+            var expiryDate = document.getElementById('expiryDate').value;
+            var cvv = document.getElementById('cvv').value;
+    
+            if (cardNumber == "" || expiryDate == "" || cvv == "") {
+                alert("All fields are required.");
+                return false;
+            }
+    
+            return true;
+        }
+        </script>
+</body>
+</html>
+==============================================================================
+<!-- Order Confirmation Page -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Order Confirmation</title>
+</head>
+
+<body>
+    <h1>Order Confirmation</h1>
+    <p>Your order has been placed successfully.</p>
+</body>
+
+</html>
+
+
+
+virat.html
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home Page</title>
+</head>
+
+<frameset rows="20%, 80%">
+    <frame name="marquee" src="marquee.html" />
+    <frame name="lol" src="https://wikipedia.org/wiki/Virat_Kohli" />
+</frameset>
+
+</html>
+
+----------------------------------------------------------------------------------------------------
+
+marquee.html
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Marquee Image</title>
+</head>
+
+<body>
+    <marquee>
+        <img src="image.jpg">
+    </marquee>
+</body>
+
+</html>
+
+
+
+XML to retrieve 10 user data by Id
+
+user.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+    <user>
+        <id>1</id>
+        <name>John Doe</name>
+        <email>johndoe@example.com</email>
+        <phone>123-456-7890</phone>
+    </user>
+    <user>
+        <id>2</id>
+        <name>Jane Smith</name>
+        <email>janesmith@example.com</email>
+        <phone>234-567-8901</phone>
+    </user>
+    <user>
+        <id>3</id>
+        <name>Michael Johnson</name>
+        <email>michaelj@example.com</email>
+        <phone>345-678-9012</phone>
+    </user>
+    <user>
+        <id>4</id>
+        <name>Emily Davis</name>
+        <email>emilyd@example.com</email>
+        <phone>456-789-0123</phone>
+    </user>
+    <user>
+        <id>5</id>
+        <name>William Brown</name>
+        <email>williamb@example.com</email>
+        <phone>567-890-1234</phone>
+    </user>
+    <user>
+        <id>6</id>
+        <name>Jessica Wilson</name>
+        <email>jessicaw@example.com</email>
+        <phone>678-901-2345</phone>
+    </user>
+    <user>
+        <id>7</id>
+        <name>David Martinez</name>
+        <email>davidm@example.com</email>
+        <phone>789-012-3456</phone>
+    </user>
+    <user>
+        <id>8</id>
+        <name>Sarah Lee</name>
+        <email>sarahlee@example.com</email>
+        <phone>890-123-4567</phone>
+    </user>
+    <user>
+        <id>9</id>
+        <name>Christopher Harris</name>
+        <email>christopherh@example.com</email>
+        <phone>901-234-5678</phone>
+    </user>
+    <user>
+        <id>10</id>
+        <name>Amy Clark</name>
+        <email>amyc@example.com</email>
+        <phone>012-345-6789</phone>
+    </user>
+</users>
+
+
+
+index.php
+
+<?php
+if (isset($_GET['userId'])) {
+    $userId = $_GET['userId'];
+    $xml = simplexml_load_file('users.xml') or die(json_encode(['error' => 'Cannot load XML']));
+
+    foreach ($xml->user as $user) {
+        if ((string)$user->id === $userId) {
+            echo json_encode([
+                'id' => (string)$user->id,
+                'name' => (string)$user->name,
+                'email' => (string)$user->email,
+                'phone' => (string)$user->phone
+            ]);
+            exit;
+        }
+    }
+    
+    header('HTTP/1.1 404 Not Found');
+    echo json_encode(['error' => 'User not found']);
+} else {
+    header('HTTP/1.1 400 Bad Request');
+    echo json_encode(['error' => 'No userId provided']);
+}
+?>
+
+
+
+
+Read data from one file and copy into another file   
+
+ <?php
+function copyFileContent($sourceFile, $destinationFile) {
+    if (!file_exists($sourceFile) || !is_readable($sourceFile)) {
+        throw new Exception("Source file does not exist or is not readable.");
+    }
+
+    if (file_put_contents($destinationFile, file_get_contents($sourceFile)) === false) {
+        throw new Exception("Failed to write to destination file.");
+    }
+
+    echo "Data successfully written to $destinationFile";
+}
+
+// Example usage
+try {
+    copyFileContent('source.txt', 'destination.txt');
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+
+
+
+
+Merge two arrays and sort them in ascending order or descending order
+
+<?php
+function mergeAndSortArrays($array1, $array2, $order = 'asc') {
+    $mergedArray = array_merge($array1, $array2);
+    $order === 'desc' ? rsort($mergedArray) : sort($mergedArray);
+    return $mergedArray;
+}
+
+// Example usage:
+$array1 = [3, 5, 1, 7];
+$array2 = [2, 6, 4, 8];
+
+$sortedArrayAsc = mergeAndSortArrays($array1, $array2, 'asc');
+echo "Ascending: ";
+print_r($sortedArrayAsc);
+
+$sortedArrayDesc = mergeAndSortArrays($array1, $array2, 'desc');
+echo "Descending: ";
+print_r($sortedArrayDesc);
+?>
+
+
+
+
+
+week77777777
+userdemo.java:
+----------------------
+ import java.io.File;
+ import javax.xml.parsers.*;
+ import org.w3c.dom.*; 
+ import java.util.Scanner;
+ public class userdemo 
+ { 
+ public static void main(String args[]) throws Exception 
+ {
+	 DocumentBuilderFactory fac=DocumentBuilderFactory.newInstance();
+	 DocumentBuilder b=fac.newDocumentBuilder(); 
+	 Document doc=b.parse(new File("users.xml")); 
+	 doc.getDocumentElement().normalize();
+	 Element root=doc.getDocumentElement();
+	 Scanner in=new Scanner(System.in);
+	 System.out.println("Enter User ID:");
+	 int n=in.nextInt(); 
+	 int flag=0; 
+	 NodeList nl=doc.getElementsByTagName("user"); 
+	 for(int i=0;i<nl.getLength();i++) { Node node=nl.item(i);
+	 if(node.getNodeType()==Node.ELEMENT_NODE)
+		 { 
+	 Element e=(Element)node; 
+	 int x=Integer.parseInt(e.getElementsByTagName("rollno").item(0).getTextContent()); 
+	 if(x==n)
+		 {
+			 System.out.println(root.getNodeName()); 
+			 System.out.println("--------------------------------");
+			 System.out.println("rollno:\t"+e.getElementsByTagName("rollno").item(0).getTextContent()); 
+			 System.out.println("name:\t"+e.getElementsByTagName("name").item(0).getTextContent()); 
+			 System.out.println("branch:\t"+e.getElementsByTagName("branch").item(0).getTextContent());
+			 System.out.println("college:"+e.getElementsByTagName("college").item(0).getTextContent());
+			 flag=1;
+			 break; 
+			 } 
+			 else
+				 {
+					 flag=0;
+					 }
+					 }
+					 }
+					 if(flag==0)
+						 System.out.println("User not available"); 
+					 }
+					 } 
+------------------------------------------------------------------------------------------------------------
+users.xml:
+---------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<usersinformation>  
+    <user> 
+	<rollno>501</rollno> 
+	<name>Narasimha</name>  
+ <branch>cse</branch>
+ <college>cmrcet</college> 
+ </user>    
+ <user>  
+ <rollno>502</rollno>   
+ <name>Raju</name>  
+ <branch>cse</branch>   
+ <college>cmrcet</college>  
+ </user>      
+ <user>  
+ <rollno>503</rollno>  
+ <name>Ravi</name> 
+ <branch>cse</branch> 
+ <college>cmrcet</college>    
+ </user>  
+ <user>  
+ <rollno>504</rollno>  
+ <name>Bharath</name>   
+ <branch>cse</branch> 
+ <college>cmrcet</college> 
+ </user>    
+ <user>  
+ <rollno>505</rollno> 
+ <name>Pooja</name>   
+ <branch>cse</branch> 
+ <college>cmrcet</college>
+ </user>    
+ <user>   
+ <rollno>506</rollno>  
+ <name>Suresh</name>
+ <branch>cse</branch> 
+ <college>cmrcet</college>   
+ </user>   
+ <user>  
+ <rollno>507</rollno> 
+ <name>Karim</name>  
+ <branch>cse</branch>
+ <college>cmrcet</college>
+ </user>   
+ <user>  
+ <rollno>508</rollno> 
+ <name>kamal</name>  
+ <branch>cse</branch> 
+ <college>cmrcet</college> 
+ </user>   
+ <user>  
+ <rollno>509</rollno> 
+ <name>Sita</name> 
+ <branch>cse</branch>
+ <college>cmrcet</college> 
+ </user>   
+ <user>  
+ <rollno>510</rollno> 
+ <name>Dilip</name>  
+ <branch>cse</branch> 
+ <college>cmrcet</college> 
+ </user> 
+ </usersinformation>
